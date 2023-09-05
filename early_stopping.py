@@ -1,7 +1,7 @@
 from typing import Iterator
-import torch
 from torch import nn
 from torch.optim import Optimizer
+import numpy as np
 
 
 class EarlyStopping:
@@ -26,13 +26,13 @@ class EarlyStopping:
         self.counter = 0
 
     def __call__(
-        self, test_loss: float, model: nn.Module, optimizer: Optimizer
+        self, test_loss: float, model: nn.Module | any, optimizer: Optimizer
     ) -> None:
         """Checks if early stopping criteria are met.
 
         Args:
             test_loss (float): The current test loss.
-            model (nn.Module): The model being trained.
+            model (nn.Module | any): The model being trained.
             optimizer (Optimizer): The optimizer used for training.
         """
         if test_loss > (self.min_test_loss + self.min_delta):
@@ -49,12 +49,12 @@ class EarlyStopping:
             self.counter = 0
 
     def restore_best(
-        self, model: nn.Module, optimizer: Optimizer
+        self, model: nn.Module | any, optimizer: Optimizer
     ) -> tuple[dict, dict, Iterator]:
         """Restores the best model and optimizer states.
 
         Args:
-            model (nn.Module): The nmodel being trained.
+            model (nn.Module | any): The nmodel being trained.
             optimizer (Optimizer): The optimizer used for training.
 
         Returns:
