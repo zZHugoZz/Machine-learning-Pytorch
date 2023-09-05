@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import Iterator, Union
 from torch import nn
 from torch.optim import Optimizer
 import numpy as np
@@ -26,7 +26,7 @@ class EarlyStopping:
         self.counter = 0
 
     def __call__(
-        self, test_loss: float, model: nn.Module | any, optimizer: Optimizer
+        self, test_loss: float, model: Union[nn.Module, any], optimizer: Optimizer
     ) -> None:
         """Checks if early stopping criteria are met.
 
@@ -49,7 +49,7 @@ class EarlyStopping:
             self.counter = 0
 
     def restore_best(
-        self, model: nn.Module | any, optimizer: Optimizer
+        self, model: Union[nn.Module, any], optimizer: Optimizer
     ) -> tuple[dict, dict, Iterator]:
         """Restores the best model and optimizer states.
 
