@@ -1,3 +1,7 @@
+import torch
+from torch.utils.data import DataLoader
+
+
 def compute_mean_std(dataloader: DataLoader) -> tuple[torch.Tensor, torch.Tensor]:
     """Calculates the mean and standard deviation of a dataset using a DataLoader.
     This function iterates through a DataLoader to compute the mean and
