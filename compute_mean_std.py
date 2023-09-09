@@ -2,7 +2,9 @@ import torch
 from torch.utils.data import DataLoader
 
 
-def compute_mean_std(dataloader: DataLoader) -> tuple[torch.Tensor, torch.Tensor]:
+def compute_mean_std(
+    dataloader: DataLoader,
+) -> tuple[torch.Tensor | float, torch.Tensor | float]:
     """Calculates the mean and standard deviation of a dataset using a DataLoader.
     This function iterates through a DataLoader to compute the mean and
     standard deviation of the dataset based on the pixel values of the images.
@@ -12,7 +14,7 @@ def compute_mean_std(dataloader: DataLoader) -> tuple[torch.Tensor, torch.Tensor
         statistics for.
 
     Returns:
-        tuple[torch.Tensor, torch.Tensor]: A tuple containing two Tensors.
+        tuple[torch.Tensor | float, torch.Tensor | float]: A tuple containing two Tensors.
         The first Tensor represents the computed mean values for each
         channel (e.g., R, G, B), and the second Tensor represents
         the computed standard deviation values for each channel.
