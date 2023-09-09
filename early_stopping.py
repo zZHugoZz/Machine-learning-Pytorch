@@ -58,7 +58,7 @@ class EarlyStopping:
             optimizer (Optimizer): The optimizer used for training.
 
         Returns:
-            tuple[dict, dict, Iterator]: A tuple containing the best model state dictionary,
+            tuple[any, dict[str, any], any] | None: A tuple containing the best model state dictionary,
             best optimizer state dictionary, and best model parameters.
         """
         if (
