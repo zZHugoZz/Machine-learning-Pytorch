@@ -22,16 +22,16 @@ def compute_mean_std(
     global_mean = 0.0
     global_std = 0.0
 
-    for images, _ in dataloader:
+    for batch, _ in dataloader:
         mean = 0.0
         std = 0.0
 
-        for image in images:
+        for image in batch:
             mean += image.mean((1, 2))
             std += image.std((1, 2))
 
-        mean /= len(images)
-        std /= len(images)
+        mean /= len(batch)
+        std /= len(batch)
 
         global_mean += mean
         global_std += std
