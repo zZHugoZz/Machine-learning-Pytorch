@@ -1,4 +1,4 @@
-from typing import Iterator, Union
+from typing import Union, Any
 from torch import nn
 from torch.optim import Optimizer
 import numpy as np
@@ -20,13 +20,13 @@ class EarlyStopping:
         self.min_delta = min_delta
         self.best_model_state_dict = None
         self.best_model_params = None
-        self.best_optimizer_params = None
+        self.best_optimizer_state_dict = None
         self.min_test_loss = np.inf
         self.stop = False
         self.counter = 0
 
     def __call__(
-        self, test_loss: float, model: Union[nn.Module, any], optimizer: Optimizer
+        self, test_loss: float, model: Union[nn.Module, Any], optimizer: Optimizer
     ) -> None:
         """Checks if early stopping criteria are met.
 
@@ -49,8 +49,8 @@ class EarlyStopping:
             self.counter = 0
 
     def restore_best(
-        self, model: Union[nn.Module, any], optimizer: Optimizer
-    ) -> tuple[dict, dict, Iterator]:
+        self, model: Union[nn.Module, Any], optimizer: Optimizer
+    ) -> tuple[Any, dict[str, Any], Any] | None:
         """Restores the best model and optimizer states.
 
         Args:
@@ -66,11 +66,8 @@ class EarlyStopping:
             and self.best_optimizer_state_dict is not None
         ):
             best_model_state_dict = model.load_state_dict(self.best_model_state_dict)
-            best_optimizer_state_dict = optimizer.load_state_dict(
-                self.best_optimizer_state_dict
-            )
+            best_optimizer_state_dict = optimizer.state_dict()
             best_model_params = self.best_model_params
             return best_model_state_dict, best_optimizer_state_dict, best_model_params
 
-
-early_stopping = EarlyStopping()
+        return None
